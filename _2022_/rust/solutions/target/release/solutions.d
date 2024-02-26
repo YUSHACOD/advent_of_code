@@ -1,0 +1,1 @@
+/home/apeslinux/advent_of_code/_2022_/rust/solutions/target/release/solutions: /home/apeslinux/advent_of_code/_2022_/rust/solutions/src/day6.rs /home/apeslinux/advent_of_code/_2022_/rust/solutions/src/input.rs /home/apeslinux/advent_of_code/_2022_/rust/solutions/src/main.rs
