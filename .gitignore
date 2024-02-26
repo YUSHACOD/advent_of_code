@@ -1,5 +1,4 @@
 input*
 temp*
-_2022_/rust/solutions/target/*
-_2022_/ocaml/*/_build/*
-_2022_/ocaml/*/bin/dune
+./_2022_/rust/solutions/target/
+./_2022_/ocaml/day01//_build/
