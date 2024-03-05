@@ -1,25 +1,25 @@
 #[allow(dead_code)]
 #[derive(Debug)]
 enum Operation {
-    Add(u128),
-    Multiply(u128),
+    Add(usize),
+    Multiply(usize),
     Square,
 }
 
 #[allow(dead_code)]
 #[derive(Debug)]
 struct Monkey {
-    items: Vec<u128>,
+    items: Vec<usize>,
     operation: Operation,
-    filter: u128,
-    if_true: u128,
-    if_false: u128,
-    inspections: u128,
+    filter: usize,
+    if_true: usize,
+    if_false: usize,
+    inspections: usize,
 }
 
 impl Monkey {
-    fn operate(&self, value: &u128) -> u128 {
-        match self.operation {
+    fn operate(&self, value: &usize, group_limit: usize) -> usize {
+        let worry_value = match self.operation {
             Operation::Add(operand) => value + operand,
 
             Operation::Multiply(operand) => {
@@ -28,14 +28,15 @@ impl Monkey {
             }
 
             Operation::Square => value * value,
-        }
+        };
+        worry_value % group_limit
     }
 
-    fn inspect_all_items(&mut self) -> (Vec<u128>, Vec<u128>) {
-        let mut true_throws: Vec<u128> = Vec::new();
-        let mut false_throws: Vec<u128> = Vec::new();
+    fn inspect_all_items(&mut self, group_limit: usize) -> (Vec<usize>, Vec<usize>) {
+        let mut true_throws: Vec<usize> = Vec::new();
+        let mut false_throws: Vec<usize> = Vec::new();
         self.items.iter().fold(0, |acc, x| {
-            let worry_value = self.operate(x);
+            let worry_value = self.operate(x, group_limit);
 
             if worry_value % self.filter == 0 {
                 true_throws.push(worry_value);
@@ -61,7 +62,7 @@ fn create_monkey(monkey_data: &String) -> Monkey {
 
     //dbg!(&lines);
 
-    let items_t: Vec<u128> = lines[1]
+    let items_t: Vec<usize> = lines[1]
         .replace("Starting items:", "")
         .trim()
         .split(", ")
@@ -113,42 +114,34 @@ fn create_monkey(monkey_data: &String) -> Monkey {
     }
 }
 
-pub fn solution(input: &Vec<String>) -> u128 {
-    let mut monkeys: Vec<Monkey> = input.iter().map(create_monkey).collect();
-
-    //dbg!(&input);
-    //dbg!(&monkeys);
+pub fn solution(input: &Vec<String>) -> usize {
+    let mut group_limit: usize = 1;
+    let mut monkeys: Vec<Monkey> = input
+        .iter()
+        .map(|x| {
+            let x = create_monkey(x);
+            group_limit *= x.filter;
+            x
+        })
+        .collect();
 
     for _round in 0..10000 {
-        //println!("################################################");
-        //println!("Round {}", round + 1);
         for i in 0..monkeys.len() {
-            let (mut true_throws, mut false_throws) = monkeys[i].inspect_all_items();
+            let (mut true_throws, mut false_throws) = monkeys[i].inspect_all_items(group_limit);
             let true_idx = monkeys[i].if_true;
             let false_idx = monkeys[i].if_false;
-            monkeys[i].inspections += true_throws.len() as u128 + false_throws.len() as u128;
-            //dbg!((&true_throws, &false_throws));
+            monkeys[i].inspections += true_throws.len() as usize + false_throws.len() as usize;
             monkeys[true_idx as usize].items.append(&mut true_throws);
             monkeys[false_idx as usize].items.append(&mut false_throws);
         }
-        /*
-        for i in 0..monkeys.len() {
-            dbg!((&monkeys[i].items, i));
-            dbg!(&monkeys[i].inspections);
-        }
-        */
-        //println!("Round {}", round + 1);
-        //println!("################################################");
     }
 
-    let mut simian_activity: Vec<u128> = Vec::new();
+    let mut simian_activity: Vec<usize> = Vec::new();
     for i in 0..monkeys.len() {
-        dbg!((&monkeys[i].items, i));
-        dbg!(&monkeys[i].inspections);
         simian_activity.push(monkeys[i].inspections);
     }
 
-    simian_activity.sort(); 
-    simian_activity.reverse(); 
+    simian_activity.sort();
+    simian_activity.reverse();
     simian_activity[0] * simian_activity[1]
 }
