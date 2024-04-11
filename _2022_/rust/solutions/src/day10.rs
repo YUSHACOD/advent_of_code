@@ -6,7 +6,7 @@ enum Instruction {
 
 fn crt_draw(cycle_counter: isize, register_x: isize) {
     let pixel_pos = cycle_counter % 40 - 1;
-    if ((register_x- 1)..=(register_x + 1)).contains(&pixel_pos) {
+    if ((register_x - 1)..=(register_x + 1)).contains(&pixel_pos) {
         print!("#");
     } else {
         print!(" ");

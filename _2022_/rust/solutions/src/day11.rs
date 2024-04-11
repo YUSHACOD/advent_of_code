@@ -130,9 +130,9 @@ pub fn solution(input: &Vec<String>) -> usize {
             let (mut true_throws, mut false_throws) = monkeys[i].inspect_all_items(group_limit);
             let true_idx = monkeys[i].if_true;
             let false_idx = monkeys[i].if_false;
-            monkeys[i].inspections += true_throws.len() as usize + false_throws.len() as usize;
-            monkeys[true_idx as usize].items.append(&mut true_throws);
-            monkeys[false_idx as usize].items.append(&mut false_throws);
+            monkeys[i].inspections += true_throws.len() + false_throws.len();
+            monkeys[true_idx].items.append(&mut true_throws);
+            monkeys[false_idx].items.append(&mut false_throws);
         }
     }
 
