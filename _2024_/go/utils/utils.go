@@ -7,6 +7,22 @@ import (
 	"strings"
 )
 
+func AbsInt(x int) int {
+	if x < 0 {
+		return -x
+	}
+
+	return x
+}
+
+func Sign(x int) int {
+	if x > 0 {
+		return 1
+	} else {
+		return -1
+	}
+}
+
 func Input(filename string) []string {
 	file, err := os.Open(filename)
 	if err != nil {
@@ -29,4 +45,16 @@ func Input(filename string) []string {
 	}
 
 	return lines
+}
+
+func RemoveFromList[T any](list []T, index int) []T {
+	length := len(list)
+
+	if index <= 0 {
+		return list[1:]
+	} else if index >= length-1 {
+		return list[:length-1]
+	} else {
+		return append(list[0:index], list[index+1:]...)
+	}
 }

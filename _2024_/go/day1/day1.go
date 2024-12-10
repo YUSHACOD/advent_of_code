@@ -9,13 +9,6 @@ import (
 	"strings"
 )
 
-func AbsInt(x int) int {
-    if x < 0 {
-        return -x
-    }
-    return x
-}
-
 func Solution1(inputFileName string) {
 	input := utils.Input(inputFileName)
 
@@ -50,7 +43,7 @@ func Solution1(inputFileName string) {
 
 	var ans int = 0
 	for i := 0; i < len(left); i += 1 {
-		ans += AbsInt(left[i] - right[i])	
+		ans += utils.AbsInt(left[i] - right[i])	
 	}
 
 	fmt.Println(ans)
