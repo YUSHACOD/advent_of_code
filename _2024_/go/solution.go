@@ -1,14 +1,14 @@
 package main
 
 import (
-	"advent_of_code/day3"
+	"advent_of_code/day4"
 	"fmt"
 	"os"
 )
 
 func main() {
 	fmt.Print("Part 1 Ans: ")
-	day3.Solution1(os.Args[1])
+	day4.Solution1(os.Args[1])
 	fmt.Print("Part 2 Ans: ")
-	day3.Solution2(os.Args[1])
+	day4.Solution2(os.Args[1])
 }

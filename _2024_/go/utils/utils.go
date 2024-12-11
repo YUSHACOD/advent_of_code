@@ -23,6 +23,10 @@ func Sign(x int) int {
 	}
 }
 
+func InRange(lower int, higher int, num int) bool {
+	return num >= lower && num < higher
+}
+
 func Input(filename string) []string {
 	file, err := os.Open(filename)
 	if err != nil {
