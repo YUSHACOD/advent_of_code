@@ -1,0 +1,4 @@
+(executables
+ (public_names day01 part2)
+ (names solution_part1 solution_part2)
+ (libraries day01))

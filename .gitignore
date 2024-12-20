@@ -1,0 +1,7 @@
+input*
+temp*
+tmp*
+*.out
+*.txt
+**/target/
+**/_build/
