@@ -1,7 +1,8 @@
-default:
-	g++ main.cpp 
+day ?= 1
 
-day ?= 0
+default:
+	g++ -c main.cpp; g++ -c day$(day).cpp; g++ main.o day$(day).o
+
 new:
 	cat day.txt > day$(day).cpp
 
@@ -11,5 +12,8 @@ test: default
 run: default
 	./a.out input.txt
 
-clean:
+rmobj:
+	rm *.o
+
+clean: rmobj
 	rm a.out

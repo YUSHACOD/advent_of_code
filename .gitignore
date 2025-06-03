@@ -2,6 +2,7 @@ input*
 temp*
 tmp*
 *.out
+*.o
 *.txt
 **/target/
 **/_build/

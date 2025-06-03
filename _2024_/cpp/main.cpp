@@ -3,7 +3,8 @@
 #include <string>
 #include <vector>
 
-#include "day1.cpp"
+std::string solution_part1(const std::vector<std::string>);
+std::string solution_part2(const std::vector<std::string>);
 
 int main(int argc, char *argv[]) {
     std::ifstream inputFile{argv[1]};
